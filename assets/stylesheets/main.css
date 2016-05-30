@@ -1,5 +1,6 @@
 body {
 	margin-top:50px;
+	background-color:#fff;
 }
 
 .board-container {
@@ -10,7 +11,8 @@ body {
 }
 
 .col-xs-4 {
-	border:1px solid black;
+	border:1px solid #bdc3c7;
+;
 	/*height:150px;
 	width:150px;*/
 	padding:0px;
@@ -19,20 +21,33 @@ body {
 }
 
 .tile-inner {
-	background:white;
+	background:#ecf0f1;
 	height:150px;
 	width:100%;
+	text-align:center;
+	padding-top:10px;
 }
 
-.blue {
+/*.blue {
 	background-color:blue;
 }
 
 .red {
 	background-color:red;
-}
+}*/
 
 .row {
 	display:block;
 	margin: 0 auto;
+}
+
+.fa-times {
+	font-size:130px;
+	color: #2980b9;
+}
+
+.fa-circle-o {
+	font-size:110px;
+	color: #e74c3c;
+	padding-top:13px;
 }

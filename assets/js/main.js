@@ -1,8 +1,8 @@
 model = {
 	gameRunning : true,
 	icons: {
-		player: null,
-		computer: null,
+		player: '<i class="fa fa-times" aria-hidden="true"></i>',
+		computer: '<i class="fa fa-circle-o" aria-hidden="true"></i>',
 	},
 
 	board : [
@@ -69,6 +69,10 @@ controller = {
 
 	getGameRunning : function(){
 		return model.gameRunning;
+	},
+
+	getPlayerIcon : function(){
+		return model.icons.player;
 	},
 
 	getOpenTiles: function(){
@@ -145,7 +149,7 @@ controller = {
 		if (model.gameRunning){
 			this.removeTile(tileID);
 			this.addToTiles("computer", tileID);
-			$(tileID).addClass('red');
+			$(tileID).html(model.icons.computer);
 			controller.checkWinner("computer");
 		}
 	},
@@ -160,12 +164,13 @@ view = {
 			var openTiles = controller.getOpenTiles();
 			var id = "#"+ $(this).attr('id');
 			var gameRunning = controller.getGameRunning();
+			var iconHTML = controller.getPlayerIcon();
 
 			if (openTiles.indexOf(id)>-1 &&gameRunning){
 				console.log("OPEN");
 				controller.removeTile(id);
 				controller.addToTiles("player",id);
-				$(this).addClass("blue");
+				$(this).html(iconHTML);
 				controller.checkWinner("player");
 				controller.computerTurn();
 
