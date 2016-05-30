@@ -1,0 +1,23 @@
+body {
+	margin-top:50px;
+}
+
+.board-container {
+	display:block;
+	width:450px;
+	margin: 0 auto;
+
+}
+
+.col-xs-4 {
+	border:1px solid black;
+	height:150px;
+	width:150px;
+	margin: 0 auto;
+
+}
+
+.row {
+	display:block;
+	margin: 0 auto;
+}
