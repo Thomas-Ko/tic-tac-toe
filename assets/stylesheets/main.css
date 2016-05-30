@@ -28,6 +28,10 @@ body {
 	background-color:blue;
 }
 
+.red {
+	background-color:red;
+}
+
 .row {
 	display:block;
 	margin: 0 auto;

@@ -18,15 +18,15 @@ model = {
 	],
 
 	openTiles: [
-		"topLeft",			
-		"topCenter",		
-		"topRight",			
-		"middleLeft",		
-		"middleCenter",		
-		"middleRight",		
-		"bottomLeft",		
-		"bottomCenter",		
-		"bottomRight",		
+		"#topLeft",			
+		"#topCenter",		
+		"#topRight",			
+		"#middleLeft",		
+		"#middleCenter",		
+		"#middleRight",		
+		"#bottomLeft",		
+		"#bottomCenter",		
+		"#bottomRight",		
 	],
 };
 
@@ -43,6 +43,16 @@ controller = {
 		}
 		console.log(model.openTiles);
 	},
+	computerTurn: function(){
+		var max = model.openTiles.length;
+		var randomNum = Math.floor((Math.random() * max));
+		var tile = model.openTiles[randomNum];
+
+		this.removeTile(tile);
+		$(tile).addClass('red');
+	},
+
+
 };
 
 
@@ -51,18 +61,17 @@ view = {
 		$(".tile").on("click", ".tile-inner", function(){
 			var openTiles = controller.getOpenTiles();
 
-			var id = $(this).attr('id');
+			var id = "#"+ $(this).attr('id');
 
 			if (openTiles.indexOf(id)>-1){
 				console.log("OPEN");
 				controller.removeTile(id);
 				$(this).addClass("blue");
+				controller.computerTurn();
 
 			} else {
-				console.log("TAKEN");
 			}
-			console.log(id);
-			// console.log(' I click');
+			
 		});
 	}
 };
