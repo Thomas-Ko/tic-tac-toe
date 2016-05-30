@@ -11,10 +11,21 @@ body {
 
 .col-xs-4 {
 	border:1px solid black;
-	height:150px;
-	width:150px;
+	/*height:150px;
+	width:150px;*/
+	padding:0px;
 	margin: 0 auto;
 
+}
+
+.tile-inner {
+	background:white;
+	height:150px;
+	width:100%;
+}
+
+.blue {
+	background-color:blue;
 }
 
 .row {
