@@ -1,5 +1,5 @@
 model = {
-
+	gameRunning : true,
 	icons: {
 		player: null,
 		computer: null,
@@ -67,6 +67,10 @@ model = {
 
 controller = {
 
+	getGameRunning : function(){
+		return model.gameRunning;
+	},
+
 	getOpenTiles: function(){
 		return model.openTiles;
 	},
@@ -83,12 +87,13 @@ controller = {
 	addToTiles: function(playerOrComputer, tileID){
 		var index = model.board.indexOf(tileID);
 		model.currentTiles[playerOrComputer].push(index);
-		var array = model.currentTiles[playerOrComputer];
-		controller.checkWinner(array, index);
+		// var array = model.currentTiles[playerOrComputer];
+		// controller.checkWinner(array, index);
 	},
 
-	checkWinner: function(array, index){
-		console.log("CHECK WINNER FUNCTION");
+	checkWinner: function(playerOrComputer){
+		var array = model.currentTiles[playerOrComputer];
+		var index = array[array.length - 1];
 		// index = parseInt(index);
 
 		console.log("your array is " + array);
@@ -103,6 +108,8 @@ controller = {
 
 				if(x===2 &&array.indexOf(winningArray[i][x])>-1){
 					console.log("WINNER!");
+					model.gameRunning = false;
+					return;
 				} else if(array.indexOf(winningArray[i][x])>-1){
 					console.log(winningArray[i][x] + " is a tile of yours");
 				} else {
@@ -135,9 +142,12 @@ controller = {
 		var randomNum = Math.floor((Math.random() * max));
 		var tileID = model.openTiles[randomNum];
 
-		this.removeTile(tileID);
-		this.addToTiles("computer", tileID);
-		$(tileID).addClass('red');
+		if (model.gameRunning){
+			this.removeTile(tileID);
+			this.addToTiles("computer", tileID);
+			$(tileID).addClass('red');
+			controller.checkWinner("computer");
+		}
 	},
 
 
@@ -149,13 +159,14 @@ view = {
 		$(".tile").on("click", ".tile-inner", function(){
 			var openTiles = controller.getOpenTiles();
 			var id = "#"+ $(this).attr('id');
+			var gameRunning = controller.getGameRunning();
 
-			if (openTiles.indexOf(id)>-1){
+			if (openTiles.indexOf(id)>-1 &&gameRunning){
 				console.log("OPEN");
 				controller.removeTile(id);
 				controller.addToTiles("player",id);
-				// controller.checkWinner("player");
 				$(this).addClass("blue");
+				controller.checkWinner("player");
 				controller.computerTurn();
 
 			} else {
