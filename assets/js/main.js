@@ -71,6 +71,15 @@ controller = {
 		return model.gameRunning;
 	},
 
+
+	gameReset : function(){
+		view.clearBoard();
+		model.openTiles = model.board.slice();
+		model.currentTiles.player=[];
+		model.currentTiles.computer=[];
+		model.gameRunning = true;
+	},
+
 	selectIcon: function(XorO){
 		if (XorO==="X"){
 			model.icons.player='<i class="fa fa-times" aria-hidden="true"></i>';
@@ -85,24 +94,35 @@ controller = {
 		return model.icons.player;
 	},
 
+	getBoard: function(){
+		return model.board;
+	},
+
 	getOpenTiles: function(){
 		return model.openTiles;
 	},
 
 
 	removeTile: function(tileID){
+		console.log("START REMOVETILE");
 		var index = model.openTiles.indexOf(tileID);
 		if (index > -1) {
     		model.openTiles.splice(index, 1);
 		}
-		console.log(model.openTiles);
+		console.log("model.opentiles is " +model.openTiles);
+		console.log("END REMOVETILE");
 	},
 
 	addToTiles: function(playerOrComputer, tileID){
+		console.log("START OF ADD TO TILES");
+		console.log("tileID is " + tileID);
+		console.log("model.board is " + model.board);
 		var index = model.board.indexOf(tileID);
+		console.log("index is " + index); 
 		model.currentTiles[playerOrComputer].push(index);
 		// var array = model.currentTiles[playerOrComputer];
 		// controller.checkWinner(array, index);
+		console.log("END OF ADD TO TILES");
 	},
 
 	checkWinner: function(playerOrComputer){
@@ -110,43 +130,27 @@ controller = {
 		var index = array[array.length - 1];
 		// index = parseInt(index);
 
-		console.log("your array is " + array);
-		console.log("your index is " + index);
+		// console.log("your array is " + array);
+		// console.log("your index is " + index);
 
 		var winningArray = model.winningMoves[index];
-		// console.log(array);
 		for (i = 0; i<winningArray.length; i++){
-			console.log("checking " +winningArray[i]);
+			// console.log("checking " +winningArray[i]);
 			for (x=0; x<winningArray[i].length; x++){
-				console.log(winningArray[i][x]);
+				// console.log(winningArray[i][x]);
 
 				if(x===2 &&array.indexOf(winningArray[i][x])>-1){
-					console.log("WINNER!");
+					// console.log("WINNER!");
 					model.gameRunning = false;
 					return;
 				} else if(array.indexOf(winningArray[i][x])>-1){
-					console.log(winningArray[i][x] + " is a tile of yours");
+					// console.log(winningArray[i][x] + " is a tile of yours");
 				} else {
 					break;
 				}
-				// } else if(x===3 &&array.indexOf(winningArray[i][x])>-1){
-				// 	console.log("WINNER!");
-				// }
 				
-				// var numTile = winningArray[i][x];
-				// if(array.indexOf(numTile)>-1){
-				// 	console.log("your tile is " +numTile);
-				// } else if(x===3 && array.indexOf(numTile)>-1) {
-				// 	// console.log("you don't have " +model.winningMoves[index][i][x]);
-				// 	console.log("WINNER!");
-				// 	console.log(model.winningMoves[index][i][x] + model.winningMoves[index][i][x-1] + model.winningMoves[index][i][x-2]);
-				// } else {
-				// 	break;
-				// }
 			}
 		}
-		// console.log("checkWinner function; index is:");
-		// console.log("index is " +index);
 
 	},
 
@@ -175,6 +179,7 @@ view = {
 			var id = "#"+ $(this).attr('id');
 			var gameRunning = controller.getGameRunning();
 			var iconHTML = controller.getPlayerIcon();
+			console.log("THIS IS " +id);
 
 			if (openTiles.indexOf(id)>-1 &&gameRunning){
 				console.log("OPEN");
@@ -197,6 +202,13 @@ view = {
 
 		$("#oChoice").on("click", function(){
 			controller.selectIcon("O");
+		});
+	},
+
+	clearBoard: function(){
+		var board = controller.getBoard();
+		board.forEach(function(tile){
+			$(tile).html("");
 		});
 	}
 };
