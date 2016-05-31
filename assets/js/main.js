@@ -123,35 +123,49 @@ controller = {
 		// var array = model.currentTiles[playerOrComputer];
 		// controller.checkWinner(array, index);
 		console.log("END OF ADD TO TILES");
+
+
 	},
 
 	checkWinner: function(playerOrComputer){
+		
+
+
 		var array = model.currentTiles[playerOrComputer];
 		var index = array[array.length - 1];
-		// index = parseInt(index);
 
-		// console.log("your array is " + array);
-		// console.log("your index is " + index);
+		/*if the index is -1, then the game is a tie and the game resets; 
+		The index can only be -1 for the computer because when its the computer's turn; Explain later
+		*/
+		if(index===-1){
+			console.log("TIE!!!!!!!!!!!!!!!");
+			setTimeout(controller.gameReset,2000);
+		} else {
+			// index = parseInt(index);
 
-		var winningArray = model.winningMoves[index];
-		for (i = 0; i<winningArray.length; i++){
-			// console.log("checking " +winningArray[i]);
-			for (x=0; x<winningArray[i].length; x++){
-				// console.log(winningArray[i][x]);
+			// console.log("your array is " + array);
+			// console.log("your index is " + index);
 
-				if(x===2 &&array.indexOf(winningArray[i][x])>-1){
-					// console.log("WINNER!");
-					model.gameRunning = false;
-					return;
-				} else if(array.indexOf(winningArray[i][x])>-1){
-					// console.log(winningArray[i][x] + " is a tile of yours");
-				} else {
-					break;
+			var winningArray = model.winningMoves[index];
+			for (i = 0; i<winningArray.length; i++){
+				// console.log("checking " +winningArray[i]);
+				for (x=0; x<winningArray[i].length; x++){
+					// console.log(winningArray[i][x]);
+
+					if(x===2 &&array.indexOf(winningArray[i][x])>-1){
+						// console.log("WINNER!");
+						model.gameRunning = false;
+						setTimeout(controller.gameReset,2000);
+						return;
+					} else if(array.indexOf(winningArray[i][x])>-1){
+						// console.log(winningArray[i][x] + " is a tile of yours");
+					} else {
+						break;
+					}
+					
 				}
-				
 			}
 		}
-
 	},
 
 
