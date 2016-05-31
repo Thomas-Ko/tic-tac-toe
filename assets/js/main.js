@@ -71,6 +71,16 @@ controller = {
 		return model.gameRunning;
 	},
 
+	selectIcon: function(XorO){
+		if (XorO==="X"){
+			model.icons.player='<i class="fa fa-times" aria-hidden="true"></i>';
+			model.icons.computer = '<i class="fa fa-circle-o" aria-hidden="true"></i>';
+		} else if(XorO==="O"){
+			model.icons.player='<i class="fa fa-circle-o" aria-hidden="true"></i>';
+			model.icons.computer = '<i class="fa fa-times" aria-hidden="true"></i>';
+		}
+	},
+
 	getPlayerIcon : function(){
 		return model.icons.player;
 	},
@@ -178,7 +188,17 @@ view = {
 			}
 			
 		});
+	},
+
+	selectIconHandler: function(){
+		$("#xChoice").on("click", function(){
+			controller.selectIcon("X");
+		});
+
+		$("#oChoice").on("click", function(){
+			controller.selectIcon("O");
+		});
 	}
 };
-
+view.selectIconHandler();
 view.tileClickHandler();

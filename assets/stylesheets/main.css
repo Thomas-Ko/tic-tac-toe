@@ -3,6 +3,19 @@ body {
 	background-color:#fff;
 }
 
+.modal-body p {
+	text-align: center;
+	font-size:20px;
+}
+
+.modal-body p i {
+	cursor: pointer;
+}
+
+.modal-body p span{
+	margin: 0 40px;
+}
+
 .board-container {
 	display:block;
 	width:450px;

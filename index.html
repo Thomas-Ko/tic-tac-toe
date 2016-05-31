@@ -29,12 +29,43 @@
 
     <!-- Bootstrap Javascript CDN -->
    	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+     <!-- Modal On Page Load -->
+      <script type="text/javascript">
+         $(window).load(function(){
+            $('#myModal').modal('show');
+         });
 
-</head>
+
+      </script>
 
 </head>
 
 <body>
+
+   <!-- Modal -->
+   <div id="myModal" class="modal fade" role="dialog" data-keyboard="false" data-backdrop="static">
+      <div class="modal-dialog">
+
+         <!-- Modal content-->
+         <div class="modal-content">
+            <div class="modal-header">
+               <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+               <h4 class="modal-title">Do you want to play as...</h4>
+            </div>
+            <div class="modal-body">
+               <p>
+                  <i class="fa fa-times" data-dismiss="modal" aria-hidden="true" id="xChoice"></i> 
+                  <span>or</span>
+                  <i class="fa fa-circle-o" data-dismiss="modal" aria-hidden="true" id="oChoice"></i>
+               </p>
+            </div>
+            <!-- <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div> -->
+         </div>
+
+      </div>
+   </div>
    
    <div class="container">
       
