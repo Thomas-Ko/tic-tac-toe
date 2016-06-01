@@ -73,11 +73,15 @@ controller = {
 
 
 	gameReset : function(){
-		view.clearBoard();
-		model.openTiles = model.board.slice();
-		model.currentTiles.player=[];
-		model.currentTiles.computer=[];
-		model.gameRunning = true;
+		setTimeout(function(){
+			view.clearBoard();
+			model.openTiles = model.board.slice();
+			model.currentTiles.player=[];
+			model.currentTiles.computer=[];
+			model.gameRunning = true;
+		},1500);
+
+		
 	},
 
 	selectIcon: function(XorO){
@@ -139,7 +143,9 @@ controller = {
 		*/
 		if(index===-1){
 			console.log("TIE!!!!!!!!!!!!!!!");
-			setTimeout(controller.gameReset,2000);
+			// setTimeout(controller.gameReset,1500);
+			controller.gameReset();
+			view.winnerModalPopUp("tie");
 		} else {
 			// index = parseInt(index);
 
@@ -155,7 +161,12 @@ controller = {
 					if(x===2 &&array.indexOf(winningArray[i][x])>-1){
 						// console.log("WINNER!");
 						model.gameRunning = false;
-						setTimeout(controller.gameReset,2000);
+						// setTimeout(controller.gameReset,1500);
+						controller.gameReset();
+						view.winnerModalPopUp(playerOrComputer);
+						// setTimeout(controller.gameReset,2000);
+
+						// $('#winnerModal').modal('toggle');
 						return;
 					} else if(array.indexOf(winningArray[i][x])>-1){
 						// console.log(winningArray[i][x] + " is a tile of yours");
@@ -224,6 +235,25 @@ view = {
 		board.forEach(function(tile){
 			$(tile).html("");
 		});
+	},
+
+	winnerModalPopUp: function(winnerOrTie){
+		var message;
+		if (winnerOrTie==="player"){
+			message="You win!";
+		} else if (winnerOrTie==="computer"){
+			message="Computer wins";
+		} else if (winnerOrTie==="tie" || winnerOrTie){
+			message="It's a tie.";
+		}
+
+		$("#winnerModalMessage").html(message);
+		$('#winnerModal').modal('toggle');
+		setTimeout(function(){
+			$('#winnerModal').modal('toggle');
+		},1500);
+
+						
 	}
 };
 view.selectIconHandler();

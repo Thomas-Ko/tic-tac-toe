@@ -16,6 +16,11 @@ body {
 	margin: 0 40px;
 }
 
+#winnerModalMessage{
+	margin:0;
+	font-size:35px;
+}
+
 .board-container {
 	display:block;
 	width:450px;
