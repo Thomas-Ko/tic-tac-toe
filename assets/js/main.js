@@ -1,8 +1,8 @@
 model = {
 	gameRunning : true,
 	icons: {
-		player: '<i class="fa fa-times" aria-hidden="true"></i>',
-		computer: '<i class="fa fa-circle-o" aria-hidden="true"></i>',
+		player: '<i class="fa fa-times icon-x" aria-hidden="true"></i>',
+		computer: '<i class="fa fa-circle-o icon-o" aria-hidden="true"></i>',
 	},
 
 	board : [
@@ -86,11 +86,11 @@ controller = {
 
 	selectIcon: function(XorO){
 		if (XorO==="X"){
-			model.icons.player='<i class="fa fa-times" aria-hidden="true"></i>';
-			model.icons.computer = '<i class="fa fa-circle-o" aria-hidden="true"></i>';
+			model.icons.player='<i class="fa fa-times icon-x" aria-hidden="true"></i>';
+			model.icons.computer = '<i class="fa fa-circle-o icon-o" aria-hidden="true"></i>';
 		} else if(XorO==="O"){
-			model.icons.player='<i class="fa fa-circle-o" aria-hidden="true"></i>';
-			model.icons.computer = '<i class="fa fa-times" aria-hidden="true"></i>';
+			model.icons.player='<i class="fa fa-circle-o icon-o" aria-hidden="true"></i>';
+			model.icons.computer = '<i class="fa fa-times icon-x" aria-hidden="true"></i>';
 		}
 	},
 
@@ -242,7 +242,7 @@ view = {
 		if (winnerOrTie==="player"){
 			message="You win!";
 		} else if (winnerOrTie==="computer"){
-			message="Computer wins";
+			message="Computer wins.";
 		} else if (winnerOrTie==="tie" || winnerOrTie){
 			message="It's a tie.";
 		}
@@ -251,10 +251,35 @@ view = {
 		$('#winnerModal').modal('toggle');
 		setTimeout(function(){
 			$('#winnerModal').modal('toggle');
-		},1500);
+		},1500);					
+	},
 
-						
-	}
+	themes: {
+		init: function(){
+			this.selectSimpleThemeHandler();
+			this.selectRetroNeonThemeHandler();
+		},
+		selectSimpleThemeHandler: function(){
+			$("#themeSimple").on("click", function(){
+				$('link[href="assets/stylesheets/retro-neon-theme.css"]').attr('href','assets/stylesheets/simple-theme.css');
+				$("#themeRetroNeon").html('<i class="fa fa-circle-o" aria-hidden="true"></i> Retro-Neon');
+				$("#themeSimple").html('<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Simple');
+				$("#themeSimple").addClass("active-theme");
+				$("#themeRetroNeon").removeClass("active-theme");
+			});
+		},
+
+		selectRetroNeonThemeHandler: function(){
+			$("#themeRetroNeon").on("click", function(){
+				$('link[href="assets/stylesheets/simple-theme.css"]').attr('href','assets/stylesheets/retro-neon-theme.css');
+				$("#themeSimple").html('<i class="fa fa-circle-o" aria-hidden="true"></i> Simple');
+				$("#themeRetroNeon").html('<i class="fa fa-dot-circle-o" aria-hidden="true"></i> Retro-Neon');
+				$("#themeSimple").removeClass("active-theme");
+				$("#themeRetroNeon").addClass("active-theme");
+			});
+		},
+	},
 };
 view.selectIconHandler();
 view.tileClickHandler();
+view.themes.init();

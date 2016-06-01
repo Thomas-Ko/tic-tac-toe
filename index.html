@@ -22,6 +22,7 @@
      
     <!-- MAIN stylesheet -->
     <link rel="stylesheet" href="assets/stylesheets/main.css">
+    <link rel="stylesheet" href="assets/stylesheets/simple-theme.css">
 
    <!-- SCRIPTS -->
 
@@ -54,10 +55,10 @@
                <h4 class="modal-title">Do you want to play as...</h4>
             </div>
             <div class="modal-body">
-               <p>
-                  <i class="fa fa-times" data-dismiss="modal" aria-hidden="true" id="xChoice"></i> 
+               <p> 
+                  <i class="fa fa-times icon-x" data-dismiss="modal" aria-hidden="true" id="xChoice"></i> 
                   <span>or</span>
-                  <i class="fa fa-circle-o" data-dismiss="modal" aria-hidden="true" id="oChoice"></i>
+                  <i class="fa fa-circle-o icon-o" data-dismiss="modal" aria-hidden="true" id="oChoice"></i>
                </p>
             </div>
             <!-- <div class="modal-footer">
@@ -163,6 +164,15 @@
         
 
       </div><!-- /.board-container -->
+      <div id="themeDiv">
+         Theme: 
+         <span id="themeSimple" class="theme active-theme">
+            <i class="fa fa-dot-circle-o" aria-hidden="true"></i> Simple 
+         </span>
+         <span id="themeRetroNeon" class="theme">
+            <i class="fa fa-circle-o" aria-hidden="true"></i> Retro-Neon
+         </span>
+      </div>
 
    </div><!-- /.container -->
 

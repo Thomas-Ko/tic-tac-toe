@@ -1,0 +1,47 @@
+body {
+	background-color:rgb(0,0,6);
+}
+
+.modal-content {
+	background-color:rgba(255, 255, 255,0.95);
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,225,1);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(255,255,225,1);
+	box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.6);
+	border: none;
+}
+
+h1 {
+	color: rgba(255, 255, 255, 0.8);
+	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);
+}
+
+.board-container {
+	border:1px solid rgba(102, 255, 51,0.8);	/* //66FF33 */
+}
+
+.col-xs-4 {
+	border:1px solid rgba(102, 255, 51,0.8);
+}
+
+.tile-inner {
+	background-color: rgba(102, 255, 51,0.05);
+
+	-webkit-box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);
+	-moz-box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);
+	box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);
+}
+
+.icon-x {
+	color: rgb(5, 238, 250);
+	text-shadow: 0px 0px 10px rgba(5, 238, 250, 1);
+}
+
+.icon-o {
+	color: rgb(255, 0, 40);
+	text-shadow: 0px 0px 10px rgba(255, 0, 40, 1);	
+}
+
+.active-theme {
+	color: rgba(200, 200, 200, 1); 
+	text-shadow: 0px 0px 7px rgba(200, 200, 200, 0.8);	
+}
