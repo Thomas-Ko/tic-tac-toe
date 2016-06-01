@@ -45,31 +45,31 @@ model = {
 	//all possible winning combinations, 0 corresponds to top-left tile; 1 top-center, etc.
 	winningMoves : [
 		[ //0
-			[0,1,2], [0,4,8], [0,3,6] 	
+			[0,1,2], [0,2,1], [0,4,8], [0,8,4], [0,3,6], [0,6,3]
 		],
 		[ //1
-			[1,0,2], [1,4,7]
+			[1,0,2], [1,2,0], [1,4,7], [1,7,4]
 		],
 		[ //2
-			[2,0,1], [2,4,6], [2,5,8]
+			[2,0,1], [2,1,0], [2,4,6], [2,6,4], [2,5,8], [2,8,5]
 		],
 		[ //3
-			[3,0,6], [3,4,5]
+			[3,0,6], [3,6,0], [3,4,5], [3,5,4]
 		],
 		[ //4
-			[4,0,8], [4,6,2], [4,3,5], [4,1,7],
+			[4,0,8], [4,8,1], [4,6,2], [4,2,6], [4,3,5], [4,5,3], [4,1,7], [4,7,1]
 		],
 		[ //5
-			[5,4,3], [5,2,8]
+			[5,4,3], [5,3,4], [5,2,8], [5,8,2]
 		],
 		[ //6
-			[6,3,0], [6,7,8], [6,4,2]
+			[6,3,0], [6,0,3], [6,7,8], [6,8,7], [6,4,2], [6,2,4]
 		],
 		[ //7
-			[7,6,8], [7,4,1]
+			[7,6,8], [7,8,6], [7,4,1], [7,1,4]
 		],
 		[ //8
-			[8,7,6],[8,4,0],[8,5,2]
+			[8,7,6], [8,6,7], [8,4,0], [8,0,4], [8,5,2], [8,2,5]
 		]
 	],
 };
@@ -169,7 +169,114 @@ controller = {
 		var max = model.openTiles.length;
 		var randomNum = Math.floor((Math.random() * max));
 		var tileID = model.openTiles[randomNum];
+
+		var array = model.currentTiles.computer;
+		// var board = model.board;
+		var winningMoves = model.winningMoves;
+		// console.log(winningMoves);
+		// for(i=0; i<winningMoves.length;i++){
+		// 	// console.log(winningMoves[i]);
+		// 	for(x=0;x<winningMoves[i].length; x++){
+		// 		console.log(winningMoves[i][x]);
+		// 		for(y=0; y<winningMoves[i][x].length;y++);
+		// 	}
+		// }
+
+		// var winningArray = model.winningMoves;
+		// loop1 :
+		// 	for (z=0; z<winningArray.length; z++){
+				
+				
+		// loop2:
+		// 			for (i = 0; i<winningArray[z].length; i++){
+		// loop3:	
+		// 				for (x=0; x<winningArray[z][i].length; x++){
+		// 					// console.log(winningArray[i]);
+		// 					// if(array.indexOf(winningArray[i][x])>-1){
+		// 					// 	// console.log(z + "IS OPEN AND WILL WIN");
+		// 					// 	// console.log("winning array is " + winningArray[i]);
+		// 					// } else 
+		// 					if(x===0){
+		// 						console.log(winningArray[z][i][x] + " is open and will win");
+		// 					}else {
+		// 						console.log("no winning moves");
+		// 						break loop2;
+		// 					}
+		// 				}
+		// 			}		
+		// 	}
+
+		var winningArray = model.winningMoves;
+			for(y=0;y<winningArray.length;y++){
+
+
+				for (i = 0; i<winningArray[y].length; i++){
+					for (x=0; x<winningArray[y][i].length; x++){
+
+						//if 3 tiles in a row (winner)
+						if(model.currentTiles.computer.indexOf(winningArray[y][i][x])>-1){
+							console.log("COMP HAS" +winningArray[y][i][x]);
+						}
+	
+						else if(x===2 && model.openTiles.indexOf(model.board[winningArray[y][i][2]])){
+							console.log("TO WIN GO TO TILE " + winningArray[y][i][2]);
+						}
+
+						else {
+							break;
+						}
+					}
+				}
+			}
+			
+
+		// var winningArray = model.winningMoves[index];
+		// 	for (i = 0; i<winningArray.length; i++){
+		// 		for (x=0; x<winningArray[i].length; x++){
+
+		// 			//if 3 tiles in a row (winner)
+		// 			if(x===2 &&array.indexOf(winningArray[i][x])>-1){
+		// 				model.gameRunning = false;
+		// 				controller.gameReset();
+		// 				view.winnerModalPopUp(playerOrComputer);
+		// 				return;
+		// 			} else if(array.indexOf(winningArray[i][x])>-1){
+		// 			} else {
+		// 				break;
+		// 			}
+		// 		}
+		// 	}
+
+		// var computerCombo=[];
+		// for (i=0; i<winningMoves.length; i++){
+		// 	var arrayIndex = [];
+		// 	for (x=0; x<winningMoves[i].length; x++){
+		// 		var arrayIndexLevel2=[];
+				
+		// 		for (y = 0; y<winningMoves[i][x].length; y++){
+		// 			var match;
+		// 			if(model.currentTiles.computer.indexOf(winningMoves[i][x][y])>-1){
+		// 				console.log("COMPUTER IS OCCUPYING " + winningMoves[i][x][y]);
+		// 				match=true;
+		// 			} else {
+		// 				console.log("COMPUTER DOESN'T HAVE " +winningMoves[i][x][y]);
+		// 				match=false;
+		// 			}
+					
+		// 			arrayIndexLevel2.push(match);
+		// 		}
+		// 		arrayIndex.push(arrayIndexLevel2);
+		// 	}
+		// 	computerCombo.push(arrayIndex);
+		// }
+
+		// console.log("__________________________________");
+		// console.log(computerCombo);
+		// console.log("==================================");
 		
+		
+
+
 		if (model.gameRunning){
 			this.removeTile(tileID);
 			this.addToTiles("computer", tileID);
@@ -201,10 +308,8 @@ view = {
 			var id = "#"+ $(this).attr('id');
 			var gameRunning = controller.getGameRunning();
 			var iconHTML = controller.getPlayerIcon();
-			console.log("THIS IS " +id);
 
 			if (openTiles.indexOf(id)>-1 &&gameRunning){
-				console.log("OPEN");
 				controller.removeTile(id);
 				controller.addToTiles("player",id);
 				$(this).html(iconHTML);
