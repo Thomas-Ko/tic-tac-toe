@@ -66,11 +66,16 @@ model = {
 };
 
 controller = {
+	init: function(){
+		$(window).load(function(){
+			controller.gameReset();
+			view.init();
+		});
+	},
 
 	getGameRunning : function(){
 		return model.gameRunning;
 	},
-
 
 	gameReset : function(){
 		setTimeout(function(){
@@ -179,7 +184,6 @@ controller = {
 		}
 	},
 
-
 	computerTurn: function(){
 		var max = model.openTiles.length;
 		var randomNum = Math.floor((Math.random() * max));
@@ -192,12 +196,23 @@ controller = {
 			controller.checkWinner("computer");
 		}
 	},
-
-
 };
 
 
 view = {
+	init: function(){
+		
+			this.chooseYourIconModal();
+			this.selectIconHandler();
+			this.tileClickHandler();
+			this.themes.init();
+		
+	},
+
+	chooseYourIconModal : function(){
+    	$('#myModal').modal('show');
+	},
+
 	tileClickHandler: function(){
 		$(".tile").on("click", ".tile-inner", function(){
 			var openTiles = controller.getOpenTiles();
@@ -280,6 +295,5 @@ view = {
 		},
 	},
 };
-view.selectIconHandler();
-view.tileClickHandler();
-view.themes.init();
+
+controller.init();
