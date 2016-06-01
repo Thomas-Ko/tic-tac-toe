@@ -1,10 +1,16 @@
+/*==================== 
+	MODEL
+====================*/
 model = {
 	gameRunning : true,
+	
+	//html of icons will be placed here when user selects their icon choice 
 	icons: {
-		player: '<i class="fa fa-times icon-x" aria-hidden="true"></i>',
-		computer: '<i class="fa fa-circle-o icon-o" aria-hidden="true"></i>',
+		player: null,
+		computer: null,
 	},
 
+	//all tiles;
 	board : [
 		"#topLeft",			//0	
 		"#topCenter",		//1	
@@ -17,6 +23,7 @@ model = {
 		"#bottomRight",		//8	
 	],
 
+	//shows open tiles; tiles will be removed from this array when user or computer makes a tile choice
 	openTiles: [
 		"#topLeft",			
 		"#topCenter",		
@@ -29,11 +36,13 @@ model = {
 		"#bottomRight",		
 	],
 
+	//stores information on which tiles the user/computer is occupying
 	currentTiles: {
 		player: [],
 		computer: [],
 	},
 
+	//all possible winning combinations, 0 corresponds to top-left tile; 1 top-center, etc.
 	winningMoves : [
 		[ //0
 			[0,1,2], [0,4,8], [0,3,6] 	
@@ -65,6 +74,10 @@ model = {
 	],
 };
 
+
+/*==================== 
+	CONTROLLER
+====================*/
 controller = {
 	init: function(){
 		$(window).load(function(){
@@ -111,74 +124,42 @@ controller = {
 		return model.openTiles;
 	},
 
-
 	removeTile: function(tileID){
-		console.log("START REMOVETILE");
 		var index = model.openTiles.indexOf(tileID);
 		if (index > -1) {
     		model.openTiles.splice(index, 1);
 		}
-		console.log("model.opentiles is " +model.openTiles);
-		console.log("END REMOVETILE");
 	},
 
 	addToTiles: function(playerOrComputer, tileID){
-		console.log("START OF ADD TO TILES");
-		console.log("tileID is " + tileID);
-		console.log("model.board is " + model.board);
 		var index = model.board.indexOf(tileID);
-		console.log("index is " + index); 
 		model.currentTiles[playerOrComputer].push(index);
-		// var array = model.currentTiles[playerOrComputer];
-		// controller.checkWinner(array, index);
-		console.log("END OF ADD TO TILES");
-
-
 	},
 
 	checkWinner: function(playerOrComputer){
-		
-
-
 		var array = model.currentTiles[playerOrComputer];
 		var index = array[array.length - 1];
 
-		/*if the index is -1, then the game is a tie and the game resets; 
-		The index can only be -1 for the computer because when its the computer's turn; Explain later
-		*/
+		//if tie
 		if(index===-1){
 			console.log("TIE!!!!!!!!!!!!!!!");
-			// setTimeout(controller.gameReset,1500);
 			controller.gameReset();
 			view.winnerModalPopUp("tie");
 		} else {
-			// index = parseInt(index);
-
-			// console.log("your array is " + array);
-			// console.log("your index is " + index);
-
 			var winningArray = model.winningMoves[index];
 			for (i = 0; i<winningArray.length; i++){
-				// console.log("checking " +winningArray[i]);
 				for (x=0; x<winningArray[i].length; x++){
-					// console.log(winningArray[i][x]);
 
+					//if 3 tiles in a row (winner)
 					if(x===2 &&array.indexOf(winningArray[i][x])>-1){
-						// console.log("WINNER!");
 						model.gameRunning = false;
-						// setTimeout(controller.gameReset,1500);
 						controller.gameReset();
 						view.winnerModalPopUp(playerOrComputer);
-						// setTimeout(controller.gameReset,2000);
-
-						// $('#winnerModal').modal('toggle');
 						return;
 					} else if(array.indexOf(winningArray[i][x])>-1){
-						// console.log(winningArray[i][x] + " is a tile of yours");
 					} else {
 						break;
 					}
-					
 				}
 			}
 		}
@@ -188,7 +169,7 @@ controller = {
 		var max = model.openTiles.length;
 		var randomNum = Math.floor((Math.random() * max));
 		var tileID = model.openTiles[randomNum];
-
+		
 		if (model.gameRunning){
 			this.removeTile(tileID);
 			this.addToTiles("computer", tileID);
@@ -199,14 +180,15 @@ controller = {
 };
 
 
+/*==================== 
+	VIEW
+====================*/
 view = {
 	init: function(){
-		
-			this.chooseYourIconModal();
-			this.selectIconHandler();
-			this.tileClickHandler();
-			this.themes.init();
-		
+		this.chooseYourIconModal();
+		this.selectIconHandler();
+		this.tileClickHandler();
+		this.themes.init();
 	},
 
 	chooseYourIconModal : function(){
@@ -228,10 +210,7 @@ view = {
 				$(this).html(iconHTML);
 				controller.checkWinner("player");
 				controller.computerTurn();
-
-			} else {
 			}
-			
 		});
 	},
 
@@ -296,4 +275,7 @@ view = {
 	},
 };
 
+/*==================== 
+	INITIALIZATION
+====================*/
 controller.init();

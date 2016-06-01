@@ -3,14 +3,15 @@ body {
 	font-family: 'Montserrat', sans-serif;
 }
 
-/*.modal-content {
-	background-color:rgba(255, 255, 255,0.95);
-	-webkit-box-shadow: 0px 0px 10px 0px rgba(255,255,225,1);
-	-moz-box-shadow: 0px 0px 10px 0px rgba(255,255,225,1);
-	box-shadow: 0px 0px 10px 0px rgba(255,255,255,0.6);
-	border: none;
-}*/
+h1 {
+	font-size:45px;
+	text-align: center;
+	margin:30px 0;
+}
 
+/*==================== 
+	MODALS
+====================*/
 .modal-header {
 	border:none;
 }
@@ -32,44 +33,25 @@ body {
 	font-size:35px;
 }
 
-h1 {
-	font-size:45px;
-	text-align: center;
-	/*color: rgba(255, 255, 255, 0.8);
-	text-shadow: 0px 0px 10px rgba(255, 255, 255, 0.8);*/
-	margin:30px 0;
-}
-
-
-
+/*==================== 
+	BOARD
+====================*/
 .board-container {
 	display:block;
 	width:450px;
-	margin: 0 auto;
-	/*border:1px solid #bdc3c7;*/
-	/*border:1px solid rgba(102, 255, 51,0.8);*/
-	
+	margin: 0 auto;	
 }
 
 .col-xs-4 {
-	/*border:1px solid #bdc3c7;*/
-	/*border:1px solid rgba(102, 255, 51,0.8);*/
 	padding:0px;
 	margin: 0 auto;
 }
 
 .tile-inner {
-	/*background-color:#ecf0f1;*/
-	/*background-color: rgba(102, 255, 51,0.05);*/
-
 	height:150px;
 	width:100%;
 	text-align:center;
 	padding-top:10px;
-
-	/*-webkit-box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);
-	-moz-box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);
-	box-shadow: 0px 0px 10px 0px rgba(102,255,51,1);*/
 }
 
 .row {
@@ -77,40 +59,43 @@ h1 {
 	margin: 0 auto;
 }
 
+/*===== Icons =====*/
 .icon-x {
 	font-size:130px;
-	/*color: #2980b9;*/
-	/*color: rgb(5, 238, 250);
-	text-shadow: 0px 0px 10px rgba(5, 238, 250, 1);*/
 }
-
 .icon-o {
 	font-size:110px;
 	padding-top:13px;
-	/*color: #e74c3c;*/
-/*	color: rgb(255, 0, 40);
-	text-shadow: 0px 0px 10px rgba(255, 0, 40, 1);	*/
 }
 
+/*===== themes ====*/
 #themeDiv {
 	font-size:18px;
-	margin-bottom:20px;
-	margin:8px 0;
+	margin:10px 0;
+	margin-bottom:0;
 	color: #808080;
 	text-align:center;
 }
-
-
 .theme {
 	cursor: pointer;
 	padding:0 5px;
 }
-
-.active-theme {
-	/*text-decoration:underline;*/
+#br {
+	display:none;
 }
 
+/*==================== 
+	FOOTER
+====================*/
+footer {
+	text-align:center;
+	opacity:0.8;
+	margin-top:10px;
+}
 
+/*==================== 
+	MEDIA QUERIES
+====================*/
 
 @media (max-width: 490px){
 	.board-container {
@@ -129,5 +114,23 @@ h1 {
 	.icon-o{
 		font-size:76px;
 		padding-top:2px;
+	}
+
+	#themeDiv {
+		text-align:left;
+		margin-left:20px;
+		margin-top:20px;
+	}
+
+	#br {
+		display:inline;
+	}
+
+	#themeRetroNeon{
+		margin-left:74px;
+	}
+
+	footer {
+		margin-top:30px;
 	}
 }
