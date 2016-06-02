@@ -9,6 +9,7 @@ model = {
 		player: null,
 		computer: null,
 	},
+	difficulty: "medium",
 
 	//all tiles;
 	board : [
@@ -115,6 +116,10 @@ controller = {
 		return model.icons.player;
 	},
 
+	setDifficulty: function(difficulty){
+		model.difficulty=difficulty;
+	},
+
 	getBoard: function(){
 		return model.board;
 	},
@@ -141,7 +146,6 @@ controller = {
 
 		//if tie
 		if(index===-1){
-			console.log("TIE!!!!!!!!!!!!!!!");
 			controller.gameReset();
 			view.winnerModalPopUp("tie");
 		} else {
@@ -165,55 +169,61 @@ controller = {
 	},
 
 	computerTurn: function(){
-		var max = model.openTiles.length;
-		var randomNum = Math.floor((Math.random() * max));
+
+		var difficulty =model.difficulty;
+		var randomNum = Math.floor((Math.random() * model.openTiles.length));
 		var tileID = model.openTiles[randomNum];
 		var winningArray = model.winningMoves;
 
+		if(difficulty==="hard"){
+			var sideMiddles=["#middleLeft","#topCenter","#bottomCenter","middleRight"];
+			for(i=0; i<4; i++){
+				if (model.openTiles.indexOf(sideMiddles[i])>-1){
+					tileID = sideMiddles[i];
+				}
+			}
+			var corners=["#topLeft","#topRight","#bottomLeft","#bottomRight"];
+			for(i=0; i<4; i++){
+				if (model.openTiles.indexOf(corners[i])>-1){
+					tileID= corners[i];
+				}
+			}
+			if(model.openTiles.indexOf("#middleCenter")>-1){
+				tileID="#middleCenter";
+			}
+		}	
 			
-		var sideMiddles=["#middleLeft","#topCenter","#bottomCenter","middleRight"];
-		for(i=0; i<4; i++){
-			if (model.openTiles.indexOf(sideMiddles[i])>-1){
-				tileID = sideMiddles[i];
-			}
-		}
-		var corners=["#topLeft","#topRight","#bottomLeft","#bottomRight"];
-		for(i=0; i<4; i++){
-			if (model.openTiles.indexOf(corners[i])>-1){
-				tileID= corners[i];
-			}
-		}
-		if(model.openTiles.indexOf("#middleCenter")>-1){
-			tileID="#middleCenter";
-		}
+		if(difficulty==="medium" || difficulty==="hard"){
+			loop1:
+				for(y=0;y<winningArray.length;y++){
 
-		loop1:
-			for(y=0;y<winningArray.length;y++){
-
-		loop2:
-				for (i = 0; i<winningArray[y].length; i++){
-		loop3:     //checks to see if computer can block player from getting 3 in a row; assigns that to tileID;
-					for (z=0; z<winningArray[y][i].length;z++){
-						if(model.currentTiles.player.indexOf(winningArray[y][i][z])>-1){
-						} else if(z===2 &&model.openTiles.indexOf(model.board[winningArray[y][i][z]])>-1 &&model.currentTiles.computer.indexOf(model.board[winningArray[y][i][z]]===-1) &&model.currentTiles.player.indexOf(winningArray[y][i][z-1])>-1 && model.currentTiles.player.indexOf(winningArray[y][i][z-2])>-1){
-							tileID=model.board[winningArray[y][i][2]];
-							break;
-						} else {
-							break;
+			loop2:
+					for (i = 0; i<winningArray[y].length; i++){
+			loop3:     //checks to see if computer can block player from getting 3 in a row; assigns that to tileID;
+						for (z=0; z<winningArray[y][i].length;z++){
+							if(model.currentTiles.player.indexOf(winningArray[y][i][z])>-1){
+							} else if(z===2 &&model.openTiles.indexOf(model.board[winningArray[y][i][z]])>-1 &&model.currentTiles.computer.indexOf(model.board[winningArray[y][i][z]]===-1) &&model.currentTiles.player.indexOf(winningArray[y][i][z-1])>-1 && model.currentTiles.player.indexOf(winningArray[y][i][z-2])>-1){
+								tileID=model.board[winningArray[y][i][2]];
+								break;
+							} else {
+								break;
+							}
 						}
-					}
-		loop4:      //checks to see if computer can get 3 in a row; if so, that becomes the new tileID;
-					for (x=0; x<winningArray[y][i].length; x++){
-						if(model.currentTiles.computer.indexOf(winningArray[y][i][x])>-1){
-						} else if(x===2 && model.openTiles.indexOf(model.board[winningArray[y][i][2]])>-1 &&model.currentTiles.computer.indexOf(winningArray[y][i][x-1])>-1 && model.currentTiles.computer.indexOf(winningArray[y][i][x-2])>-1){
-								tileID = model.board[winningArray[y][i][2]];
-								break loop1;
-						} else {
-							break;
+			loop4:      //checks to see if computer can get 3 in a row; if so, that becomes the new tileID;
+						for (x=0; x<winningArray[y][i].length; x++){
+							if(model.currentTiles.computer.indexOf(winningArray[y][i][x])>-1){
+							} else if(x===2 && model.openTiles.indexOf(model.board[winningArray[y][i][2]])>-1 &&model.currentTiles.computer.indexOf(winningArray[y][i][x-1])>-1 && model.currentTiles.computer.indexOf(winningArray[y][i][x-2])>-1){
+									tileID = model.board[winningArray[y][i][2]];
+									break loop1;
+							} else {
+								break;
+							}
 						}
 					}
 				}
-			}
+		}
+		
+
 
 		if (model.gameRunning){
 			this.removeTile(tileID);
@@ -230,14 +240,19 @@ controller = {
 ====================*/
 view = {
 	init: function(){
-		this.chooseYourIconModal();
 		this.selectIconHandler();
+		this.selectDifficultyHandler();
+		this.chooseYourIconModal();
 		this.tileClickHandler();
 		this.themes.init();
 	},
 
 	chooseYourIconModal : function(){
     	$('#myModal').modal('show');
+	},
+
+	chooseYourDifficultyModal : function(){
+    	$('#difficultyModal').modal('show');
 	},
 
 	tileClickHandler: function(){
@@ -260,10 +275,24 @@ view = {
 	selectIconHandler: function(){
 		$("#xChoice").on("click", function(){
 			controller.selectIcon("X");
+			view.chooseYourDifficultyModal();
 		});
 
 		$("#oChoice").on("click", function(){
 			controller.selectIcon("O");
+			view.chooseYourDifficultyModal();
+		});
+	},
+
+	selectDifficultyHandler: function(){
+		$("#easyDifficulty").on("click", function(){
+			controller.setDifficulty("easy");
+		});
+		$("#mediumDifficulty").on("click", function(){
+			controller.setDifficulty("medium");
+		});
+		$("#hardDifficulty").on("click", function(){
+			controller.setDifficulty("hard");
 		});
 	},
 

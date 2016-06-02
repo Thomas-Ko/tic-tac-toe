@@ -28,6 +28,26 @@ h1 {
 	margin: 0 40px;
 }
 
+#difficultyBody {
+	text-align:center;
+	margin-bottom:20px;
+}
+
+#difficultyBody .row .col-md-4 {
+	padding:20px;
+
+}
+
+.difficulty {
+	border:2px solid #bdc3c7;
+	border-radius:4px;
+	font-size:25px;
+	padding:10px;
+	cursor:pointer;
+	background-color:#ecf0f1;
+	color:#919ba1;
+}
+
 #winnerModalMessage{
 	margin:0;
 	font-size:35px;
