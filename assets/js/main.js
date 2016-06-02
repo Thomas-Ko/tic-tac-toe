@@ -166,9 +166,12 @@ controller = {
 	},
 
 	computerTurn: function(){
+		console.log("computer Turn Start------------");
+		console.log("openTiles: " + model.openTiles);
 		var max = model.openTiles.length;
 		var randomNum = Math.floor((Math.random() * max));
 		var tileID = model.openTiles[randomNum];
+		// var tileID;
 
 		var array = model.currentTiles.computer;
 		// var board = model.board;
@@ -207,10 +210,13 @@ controller = {
 		// 	}
 
 		var winningArray = model.winningMoves;
+
+		loop1:
 			for(y=0;y<winningArray.length;y++){
 
-
+		loop2:
 				for (i = 0; i<winningArray[y].length; i++){
+		loop3:
 					for (x=0; x<winningArray[y][i].length; x++){
 
 						//if 3 tiles in a row (winner)
@@ -218,14 +224,23 @@ controller = {
 							console.log("COMP HAS" +winningArray[y][i][x]);
 						}
 	
-						else if(x===2 && model.openTiles.indexOf(model.board[winningArray[y][i][2]])){
-							console.log("TO WIN GO TO TILE " + winningArray[y][i][2]);
+						else if(x===2 && model.openTiles.indexOf(model.board[winningArray[y][i][2]])>-1 &&model.currentTiles.computer.indexOf(winningArray[y][i][x-1])>-1 && model.currentTiles.computer.indexOf(winningArray[y][i][x-2])>-1){
+							console.log("TO WIN GO TO TILE " + winningArray[y][i][2] + ". Open tiles: "+model.openTiles);
+							var tile = model.board[winningArray[y][i][2]];
+							// if (model.openTiles.indexOf(tile)>-1){
+								tileID = model.board[winningArray[y][i][2]];
+								break loop1;
+							// }
 						}
 
 						else {
 							break;
 						}
 					}
+
+					// for (x2=0; x2<winningArray[y][i].lenth;x2++){
+
+					// }
 				}
 			}
 			
