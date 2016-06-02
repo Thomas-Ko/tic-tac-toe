@@ -170,6 +170,23 @@ controller = {
 		var tileID = model.openTiles[randomNum];
 		var winningArray = model.winningMoves;
 
+			
+		var sideMiddles=["#middleLeft","#topCenter","#bottomCenter","middleRight"];
+		for(i=0; i<4; i++){
+			if (model.openTiles.indexOf(sideMiddles[i])>-1){
+				tileID = sideMiddles[i];
+			}
+		}
+		var corners=["#topLeft","#topRight","#bottomLeft","#bottomRight"];
+		for(i=0; i<4; i++){
+			if (model.openTiles.indexOf(corners[i])>-1){
+				tileID= corners[i];
+			}
+		}
+		if(model.openTiles.indexOf("#middleCenter")>-1){
+			tileID="#middleCenter";
+		}
+
 		loop1:
 			for(y=0;y<winningArray.length;y++){
 
