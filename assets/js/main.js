@@ -57,7 +57,7 @@ model = {
 			[3,0,6], [3,6,0], [3,4,5], [3,5,4]
 		],
 		[ //4
-			[4,0,8], [4,8,1], [4,6,2], [4,2,6], [4,3,5], [4,5,3], [4,1,7], [4,7,1]
+			[4,0,8], [4,8,0], [4,6,2], [4,2,6], [4,3,5], [4,5,3], [4,1,7], [4,7,1]
 		],
 		[ //5
 			[5,4,3], [5,3,4], [5,2,8], [5,8,2]
@@ -233,14 +233,23 @@ controller = {
 							// }
 						}
 
-						else {
+						else //if (i===winningArray[y].length-1 &&){
 							break;
 						}
 					}
 
-					// for (x2=0; x2<winningArray[y][i].lenth;x2++){
 
-					// }
+					for (z=0; z<winningArray[y][i].length;z++){
+						console.log(z);
+						if(model.currentTiles.player.indexOf(winningArray[y][i][z])>-1){
+							console.log("player has " + winningArray[y][i][z]);
+						} else if(z===2 &&model.openTiles.indexOf(model.board[winningArray[y][i][z]])>-1 &&model.currentTiles.computer.indexOf(model.board[winningArray[y][i][z]]===-1) &&model.currentTiles.player.indexOf(winningArray[y][i][z-1])>-1 && model.currentTiles.player.indexOf(winningArray[y][i][z-2])>-1){
+							tileID=model.board[winningArray[y][i][2]];
+							break loop1;
+						} else {
+							break;
+						}
+					}
 				}
 			}
 			
