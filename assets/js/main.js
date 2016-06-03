@@ -97,7 +97,7 @@ controller = {
 			model.currentTiles.player=[];
 			model.currentTiles.computer=[];
 			model.gameRunning = true;
-		},1500);
+		},1400);
 
 		
 	},
@@ -244,7 +244,9 @@ view = {
 		this.selectDifficultyHandler();
 		this.chooseYourIconModal();
 		this.tileClickHandler();
+		this.restartButtonHandler();
 		this.themes.init();
+		
 	},
 
 	chooseYourIconModal : function(){
@@ -252,7 +254,14 @@ view = {
 	},
 
 	chooseYourDifficultyModal : function(){
-    	$('#difficultyModal').modal('show');
+    	$('#difficultyModal').modal('show'); 	
+	},
+
+	restartButtonHandler : function(){
+		$("#restart").on("click", function(){
+			controller.gameReset();
+			view.chooseYourIconModal();
+		} );
 	},
 
 	tileClickHandler: function(){
