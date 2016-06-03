@@ -68,6 +68,23 @@ h1 {
 .col-xs-4 {
 	padding:0px;
 	margin: 0 auto;
+	border:1px solid;
+}
+
+.bottom-tile {
+	border-bottom:2px solid;
+}
+
+.left-tile {
+	border-left: 2px solid;
+}
+
+.right-tile {
+	border-right:2px solid;
+}
+
+.top-tile {
+	border-top:2px solid;
 }
 
 .tile-inner {
